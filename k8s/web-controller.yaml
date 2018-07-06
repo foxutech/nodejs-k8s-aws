@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  labels:
+    name: web
+  name: web-controller
+spec:
+  replicas: 2
+  selector:
+    name: web
+  template:
+    metadata:
+      labels:
+        name: web
+    spec:
+      containers:
+      - image: node
+        command: ['/bin/sh', '-c']
+        args: ['cd /home && git clone https://github.com/scotch-io/node-todo.git test && cd test/node-todo && npm install && sed -i -- ''s/localhost/mongo/g'' config/database.js && node server.js']
+        name: web
+        ports:
+        - containerPort: 3000
+          name: http-server
