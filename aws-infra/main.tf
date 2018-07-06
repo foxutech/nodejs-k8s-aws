@@ -1,6 +1,6 @@
 provider "aws" {
-        access_key = "AKIAJI3WIUIOQ4AGLS7Q"
-        secret_key = "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"
+        access_key = "xxxxxxxxxxxxxxx"
+        secret_key = "yyyyyyyyyyyyyyyyyyyyyyyyyyy"
 }
 
 module "vpc" {
