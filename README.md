@@ -19,7 +19,7 @@ $ git clone https://github.com/foxutech/nodejs-k8s-aws.git
 
  Once you cloned succuessfully, go to repo directory using 'cd'
  
-$ cd nodejs-k8s-aws
+$ cd nodejs-k8s-aws/aws-infra
 
 # Step2: Lets Get.Plan.Apply
 
@@ -71,7 +71,7 @@ What happens, when you this command?
  
 $ kops edir cluster ${name}
  
-# Note: There should be one Private type subnet and one Utility (public) type subnet in each availability zone and For the Private subnets, we also need to specify our NAT gateway ID in an egress key.
+Note: There should be one Private type subnet and one Utility (public) type subnet in each availability zone and For the Private subnets, we also need to specify our NAT gateway ID in an egress key.
 
 $ kops update cluster --out=. --target=terraform ${name}
 
