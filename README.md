@@ -77,4 +77,25 @@ $ kops update cluster --out=. --target=terraform ${name}
 
 Now, you can goahead and run 'Terraform plan' and 'terraform apply'. Once its ran succuessfully, in few minutes your kubernetes cluster will be ready.
 
+You can run 
+
+$ kops cluster validate
+
+to check the status of the cluster, once it ready, you can deploy the kubernetes dashboard using following command,
+
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
+
+to login dashboard, you need login details, to get the login details run, 
+
+$ kops get secrets kube --type secret -oplaintext
+
+and to get login URL, 
+
+$ kubectl cluster-info
+
+this will give master and DNS url, use master url with ui extention, will route to the dashboard. 
+
+ex: http://((kubernetes-master-hostname))/ui
+
+Now, you can maintain, you cluster using kubernetes dashboard.
 
