@@ -40,36 +40,44 @@ export NAME=$(terraform output cluster_name)
 export KOPS_STATE_STORE=$(terraform output state_store)
 export ZONES=us-west-2a,us-west-2b,us-west-2c
 
-#Step3: Lets Deploy kubernetes with kops
+# Step3: Lets Deploy kubernetes with kops
 
 before start create local ssh key for kops, 
+
 $ sudo ssh-keygen
 
 $ sudo kops create cluster staging.enplaylist.com --master-zones $ZONES --node-count 3 --zones $ZONES --networking weave --topology private --dns-zone $(terraform output public_zone_id)  --vpc $(terraform output vpc_id) --target=terraform --out=. --yes ${name}
 
 where, 
 
-   master-zones: tell Kops that we want one Kubernetes master in each zone in $ZONES. If you are using the default configuration in this post, that will be 3 masters — one each in us-west-2a, us-west-2b, and us-west-2c.
-    zones: tells Kops that our Kubernetes nodes will live in those same availability zones.
-    topology: tells Kops that we want to use a private network topology. Our Kubernetes instances will live in private subnets in each zone.
-    dns-zone: specifies the zone ID for the domain name we registered in Route53. In this example, this is populated from our Terraform output but you can specify the zone ID manually if necessary.
-    networking: we are using weave for our cluster networking in this example. Since we are using a private topology, we cannot use the default kubenet mode.
-    vpc: tells Kops which VPC to use. This is populated by a Terraform output in this example.
-    target: tells Kops that we want to generate a Terraform configuration (rather than its default mode of managing AWS resources directly).
-    out: specifies the output directory to write the Terraform configuration to. In this case, we just want to use the current directory.
+master-zones: tell Kops that we want one Kubernetes master in each zone in $ZONES. If you are using the default configuration in this post, that will be 3 masters — one each in us-west-2a, us-west-2b, and us-west-2c.
+
+zones: tells Kops that our Kubernetes nodes will live in those same availability zones.
+
+topology: tells Kops that we want to use a private network topology. Our Kubernetes instances will live in private subnets in each zone.
+
+dns-zone: specifies the zone ID for the domain name we registered in Route53. In this example, this is populated from our Terraform output but you can specify the zone ID manually if necessary.
+
+networking: we are using weave for our cluster networking in this example. Since we are using a private topology, we cannot use the default kubenet mode.
+
+vpc: tells Kops which VPC to use. This is populated by a Terraform output in this example.
+
+target: tells Kops that we want to generate a Terraform configuration (rather than its default mode of managing AWS resources directly).
+
+out: specifies the output directory to write the Terraform configuration to. In this case, we just want to use the current directory.
 
 What happens, when you this command?
 
-   Its populate the KOPS_STATE_STORE to S3 bucket with the Kubernetes cluster configuration.
-    Creates several record sets in the Route53 hosted zone for your domain (for Kubernetes APIs and etcd).
-    Create IAM policy files, user data scripts, and an SSH key in the ./data directory.
-    Generating a Terraform configuration for all of the Kubernetes resources. This will be saved in a file called kubernetes.tf.
+    - Its populate the KOPS_STATE_STORE to S3 bucket with the Kubernetes cluster configuration.
+    - Creates several record sets in the Route53 hosted zone for your domain (for Kubernetes APIs and etcd).
+    - Create IAM policy files, user data scripts, and an SSH key in the ./data directory.
+    - Generating a Terraform configuration for all of the Kubernetes resources. This will be saved in a file called kubernetes.tf.
 	
  if you want to deploy kubernetes in your exising subnet, before run 'terraform apply', edit the kubernetes.tf file using kops. mention your existing subnet details. 
  
 $ kops edir cluster ${name}
  
-Note: There should be one Private type subnet and one Utility (public) type subnet in each availability zone and For the Private subnets, we also need to specify our NAT gateway ID in an egress key.
+# Note: There should be one Private type subnet and one Utility (public) type subnet in each availability zone and For the Private subnets, we also need to specify our NAT gateway ID in an egress key.
 
 $ kops update cluster --out=. --target=terraform ${name}
 
