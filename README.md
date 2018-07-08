@@ -10,7 +10,7 @@ https://github.com/foxutech/nodejs-k8s-aws/blob/master/installpackages.sh
 Once it done, then run https://github.com/foxutech/nodejs-k8s-aws/blob/master/awsenv.sh
 to setup aws environment keys and create a IAM user. 
 
-#Step1: Clone the repository
+# Step1: Clone the repository
 
 Use git clone to clone the repository
 
@@ -20,7 +20,7 @@ $ git clone https://github.com/foxutech/nodejs-k8s-aws.git
  
 $ cd nodejs-k8s-aws
 
-#Step2: Lets Get.Plan.Apply
+# Step2: Lets Get.Plan.Apply
 
 Once you have all the files in the place, run a "terraform get" to get all the missing modules. 
 
@@ -49,7 +49,7 @@ $ sudo kops create cluster staging.enplaylist.com --master-zones $ZONES --node-c
 
 where, 
 
-    master-zones: tell Kops that we want one Kubernetes master in each zone in $ZONES. If you are using the default configuration in this post, that will be 3 masters — one each in us-west-2a, us-west-2b, and us-west-2c.
+   master-zones: tell Kops that we want one Kubernetes master in each zone in $ZONES. If you are using the default configuration in this post, that will be 3 masters — one each in us-west-2a, us-west-2b, and us-west-2c.
     zones: tells Kops that our Kubernetes nodes will live in those same availability zones.
     topology: tells Kops that we want to use a private network topology. Our Kubernetes instances will live in private subnets in each zone.
     dns-zone: specifies the zone ID for the domain name we registered in Route53. In this example, this is populated from our Terraform output but you can specify the zone ID manually if necessary.
@@ -60,7 +60,7 @@ where,
 
 What happens, when you this command?
 
-    Its populate the KOPS_STATE_STORE to S3 bucket with the Kubernetes cluster configuration.
+   Its populate the KOPS_STATE_STORE to S3 bucket with the Kubernetes cluster configuration.
     Creates several record sets in the Route53 hosted zone for your domain (for Kubernetes APIs and etcd).
     Create IAM policy files, user data scripts, and an SSH key in the ./data directory.
     Generating a Terraform configuration for all of the Kubernetes resources. This will be saved in a file called kubernetes.tf.
