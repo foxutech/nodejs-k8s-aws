@@ -3,7 +3,8 @@ Here is complete setup steps followed,
 
  Before start, please make sure you have installed, GIT, Terraform, kops and kubectl in the box. if not please follow Pre-steps:
 
-Pre-steps:
+
+# Pre-steps:
 To Install required packages, either clone the repo or copy this script and run it.
 https://github.com/foxutech/nodejs-k8s-aws/blob/master/installpackages.sh
 
@@ -50,21 +51,14 @@ $ sudo kops create cluster staging.enplaylist.com --master-zones $ZONES --node-c
 
 where, 
 
-master-zones: tell Kops that we want one Kubernetes master in each zone in $ZONES. If you are using the default configuration in this post, that will be 3 masters — one each in us-west-2a, us-west-2b, and us-west-2c.
-
-zones: tells Kops that our Kubernetes nodes will live in those same availability zones.
-
-topology: tells Kops that we want to use a private network topology. Our Kubernetes instances will live in private subnets in each zone.
-
-dns-zone: specifies the zone ID for the domain name we registered in Route53. In this example, this is populated from our Terraform output but you can specify the zone ID manually if necessary.
-
-networking: we are using weave for our cluster networking in this example. Since we are using a private topology, we cannot use the default kubenet mode.
-
-vpc: tells Kops which VPC to use. This is populated by a Terraform output in this example.
-
-target: tells Kops that we want to generate a Terraform configuration (rather than its default mode of managing AWS resources directly).
-
-out: specifies the output directory to write the Terraform configuration to. In this case, we just want to use the current directory.
+     - master-zones: tell Kops that we want one Kubernetes master in each zone in $ZONES. If you are using the default configuration in this post, that will be 3 masters — one each in us-west-2a, us-west-2b, and us-west-2c.
+     - zones: tells Kops that our Kubernetes nodes will live in those same availability zones.
+     - topology: tells Kops that we want to use a private network topology. Our Kubernetes instances will live in private subnets in each zone.
+     - dns-zone: specifies the zone ID for the domain name we registered in Route53. In this example, this is populated from our Terraform output but you can specify the zone ID manually if necessary.
+     - networking: we are using weave for our cluster networking in this example. Since we are using a private topology, we cannot use the default kubenet mode.
+     - vpc: tells Kops which VPC to use. This is populated by a Terraform output in this example.
+     - target: tells Kops that we want to generate a Terraform configuration (rather than its default mode of managing AWS resources directly).
+     - out: specifies the output directory to write the Terraform configuration to. In this case, we just want to use the current directory.
 
 What happens, when you this command?
 
