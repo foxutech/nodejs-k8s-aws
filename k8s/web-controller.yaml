@@ -14,10 +14,8 @@ spec:
         name: web
     spec:
       containers:
-      - image: node
-        command: ['/bin/sh', '-c']
-        args: ['cd /home && git clone https://github.com/scotch-io/node-todo.git test && cd test/node-todo && npm install && sed -i -- ''s/localhost/mongo/g'' config/database.js && node server.js']
+      - image: motoskia/nodetodoapp
         name: web
         ports:
-        - containerPort: 3000
+        - containerPort: 8080
           name: http-server
