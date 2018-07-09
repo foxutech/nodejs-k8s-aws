@@ -90,7 +90,7 @@ $ Terraform plan
 
 $ terraform apply
 
-Once its ran succuessfully, in few minutes your kubernetes cluster will be ready.
+Once its ran succuessfully, in few minutes your kubernetes cluster will be ready. if you get any subnet conflict, make sure there is no IP overlap, to make sure, the range of IP, please use https://www.ipaddressguide.com/cidr, to calculate the IP range.
 
 You can run 
 
