@@ -113,7 +113,7 @@ ex: http://((kubernetes-master-hostname))/ui
 
 Now, you can maintain your cluster using kubernetes dashboard. passwork u can take from kops get secret command. and token too. 
 
-Now, Kubernetes environment us ready. 
+Now, Kubernetes environment is ready. 
 
 # step4: Create docker image
 
