@@ -101,7 +101,7 @@ $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master
 
 to login dashboard, you need login details, to get the login details run, 
 
-$ kops get secrets kube --type secret -oplaintext
+$ kops get secrets kube --type secret -oplaintext --name ${name}
 
 and to get login URL, 
 
@@ -111,5 +111,40 @@ this will give master and DNS url, use master url with ui extention, will route 
 
 ex: http://((kubernetes-master-hostname))/ui
 
-Now, you can maintain, you cluster using kubernetes dashboard.
+Now, you can maintain your cluster using kubernetes dashboard. passwork u can take from kops get secret command. and token too. 
 
+Now, Kubernetes environment us ready. 
+
+# step4: Create docker image
+
+Change to directory 
+
+$ cd Docker-image
+
+lets build a doocker image, 
+
+$ docker build -t nodeapp .
+
+tag and push the docker image to your repo. (you can login to your repo using $docker login)
+
+$ docker tag nodeapp motoskia/nodetodoapp
+
+$ docker push motoskia/nodetodoapp
+
+# step5: Deploy the application
+
+Change to k8s direcoty, and start create the services using following command with each .yaml file. 
+
+$ kubectl create -f mongo-service.yaml
+
+$ kubectl create -f mongo-controller.yaml
+
+$ kubectl create -f web-controller.yaml
+
+$ kubectl create -f web-service.yaml
+
+to make sure run following command, 
+
+$ kubectl get services
+
+$ kubectl get pods
