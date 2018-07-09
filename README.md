@@ -50,7 +50,7 @@ before start create local ssh key for kops, if there is not any keyfile
 
 $ sudo ssh-keygen
 
-$ sudo kops create cluster staging.enplaylist.com --master-zones $ZONES --node-count 3 --zones $ZONES --networking weave --topology private --dns-zone $(terraform output public_zone_id)  --vpc $(terraform output vpc_id) --target=terraform --out=. --yes ${name}
+$ sudo kops create cluster --name=stagingxyz.enplaylist.com --master-zones $ZONES --node-count=2 --node-size=t2.micro --zones $ZONES --networking weave --topology private --dns-zone $(terraform output public_zone_id) --vpc $(terraform output vpc_id) --target=terraform --out=. --yes
 
 where, 
 
@@ -78,7 +78,19 @@ Note: There should be one Private type subnet and one Utility (public) type subn
 
 $ kops update cluster --out=. --target=terraform ${name}
 
-Now, you can goahead and run 'Terraform plan' and 'terraform apply'. Once its ran succuessfully, in few minutes your kubernetes cluster will be ready.
+Now, you can goahead and run 
+
+create a new folder and copy kubernetes.tf and data folder to new folder and run following commands
+
+$ sudo mkdir kubernetes
+
+$ terraform init
+
+$ Terraform plan
+
+$ terraform apply
+
+Once its ran succuessfully, in few minutes your kubernetes cluster will be ready.
 
 You can run 
 
