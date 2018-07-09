@@ -46,7 +46,7 @@ export ZONES=us-west-2a,us-west-2b,us-west-2c
 
 # Step3: Lets Deploy kubernetes with kops
 
-before start create local ssh key for kops, 
+before start create local ssh key for kops, if there is not any keyfile
 
 $ sudo ssh-keygen
 
