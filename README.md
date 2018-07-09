@@ -94,8 +94,7 @@ Once its ran succuessfully, in few minutes your kubernetes cluster will be ready
 
 You can run 
 
-$ kops cluster validate
-
+$ kops validate cluster --name ${name}
 to check the status of the cluster, once it ready, you can deploy the kubernetes dashboard using following command,
 
 $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
