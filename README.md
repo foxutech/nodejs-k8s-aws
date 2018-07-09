@@ -31,15 +31,18 @@ then start the plan to make sure, you code and good to go, if any error, it will
 
 $ terraform plan
 
-Now lets apply
+it will ask the your required region, by default us-east-1. If you can you can change it. Now lets apply
 
 $ terraform apply
 
 Once its succuessful, lets export some environment variables which requireds for setting up kubernetes.
 
 export NAME=$(terraform output cluster_name)
+
 export KOPS_STATE_STORE=$(terraform output state_store)
+
 export ZONES=us-west-2a,us-west-2b,us-west-2c
+
 
 # Step3: Lets Deploy kubernetes with kops
 
