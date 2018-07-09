@@ -35,7 +35,7 @@ it will ask the your required region, by default us-east-1. If you can you can c
 
 $ terraform apply
 
-Once its succuessful, lets export some environment variables which requireds for setting up kubernetes.
+Once its succuessful, lets export some environment variables which requireds for setting up kubernetes. and meantime, if you are using public domain don't forget to update NS records on your domain provider like godaddy, bigrock.. 
 
 export NAME=$(terraform output cluster_name)
 
