@@ -1,8 +1,3 @@
-provider "aws" {
-        access_key = "xxxxxxxxxxxxxxx"
-        secret_key = "yyyyyyyyyyyyyyyyyyyyyyyyyyy"
-}
-
 module "vpc" {
   source   = "./modules/vpc"
   name     = "${var.name}"
