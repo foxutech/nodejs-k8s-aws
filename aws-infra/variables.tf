@@ -3,11 +3,11 @@ variable "name" {
 }
 
 variable "region" {
-  default = "us-west-1"
+  default = "us-west-2"
 }
 
 variable "azs" {
-  default = ["us-west-1a", "us-west-1c", "us-west-1d"]
+  default = ["us-west-2a"]
   type    = "list"
 }
 
