@@ -41,7 +41,7 @@ export NAME=$(terraform output cluster_name)
 
 export KOPS_STATE_STORE=$(terraform output state_store)
 
-export ZONES=us-west-2a,us-west-2b,us-west-2c
+export ZONES=us-west-2a,us-west-2b
 
 
 # Step3: Lets Deploy kubernetes with kops
