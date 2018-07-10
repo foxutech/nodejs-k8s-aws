@@ -1,23 +1,80 @@
+---
 apiVersion: v1
-kind: ReplicationController
+kind: Service
 metadata:
+  name: mongo
   labels:
     name: mongo
-  name: mongo-controller
 spec:
+  ports:
+  - port: 27017
+    targetPort: 27017
+  clusterIP: None
+  selector:
+    role: mongo
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: mongo
+spec:
+  serviceName: "mongo"
   replicas: 1
   template:
     metadata:
       labels:
-        name: mongo
+        role: mongo
+        environment: test
     spec:
+      terminationGracePeriodSeconds: 10
       containers:
-      - image: mongo
-        name: mongo
-        ports:
         - name: mongo
-          containerPort: 27017
-          hostPort: 27017
-        volumeMounts:
+          image: mongo:3.4.9
+          command:
+          - /bin/sh
+          - -c
+          - >
+            if [ -f /data/db/admin-user.lock ]; then
+              mongod --replSet rs0 --clusterAuthMode keyFile --keyFile /etc/secrets-volume/mongodb-keyfile --setParameter authenticationMechanisms=SCRAM-SHA-1;
+            else
+              mongod --auth;
+            fi;
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                - /bin/sh
+                - -c
+                - >
+                  if [ ! -f /data/db/admin-user.lock ]; then
+                    sleep 5;
+                    touch /data/db/admin-user.lock
+                    if [ "$HOSTNAME" = "mongo-0" ]; then
+                      mongo --eval 'db = db.getSiblingDB("admin"); db.createUser({ user: "admin", pwd: "password", roles: [{ role: "root", db: "admin" }]});';
+                    fi;
+                    mongod --shutdown;
+                  fi;
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: mongo-key
+              mountPath: "/etc/secrets-volume"
+              readOnly: true
             - name: mongo-persistent-storage
               mountPath: /data/db
+        - name: mongo-sidecar
+          image: cvallance/mongo-k8s-sidecar
+          env:
+            - name: MONGO_SIDECAR_POD_LABELS
+              value: "role=mongo,environment=test"
+            - name: MONGODB_USERNAME
+              value: admin
+            - name: MONGODB_PASSWORD
+              value: password
+            - name: MONGODB_DATABASE
+              value: admin
+      volumes:
+      - name: mongo-key
+        secret:
+          defaultMode: 0400
+          secretName: mongo-key
