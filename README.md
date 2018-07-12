@@ -108,7 +108,9 @@ $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master
 
 to login dashboard, you need login details, to get the login details run, 
 
-$ kops get secrets admin -oplaintext
+$ kops get secrets kube --type secret -oplaintext     (for initial credentials)
+
+$ kops get secrets admin -oplaintext    (use this for login as admin)
 
 and to get login URL, 
 
