@@ -1,15 +1,15 @@
 #!/bin/bash
 
 ## before start create a user, we need to expose the Access key and secret key of your account
-read -rep "Enter your AWS accesskey: \n" accessKey
+read -rep "Enter your AWS accesskey: /n" accessKey
 
-read -rep "Enter your AWS accesskey: \n" secretKey
+read -rep "Enter your AWS secretkey: /n" secretKey
 
 export AWS_ACCESS_KEY_ID=$accessKey
 export AWS_SECRET_ACCESS_KEY=$secretKey
 
 # create IAM user, group and roles
-read -rep "Enter your AWS user: \n" user
+read -rep "Enter your AWS user: /n" user
 
 aws iam create-group --group-name $user
 
