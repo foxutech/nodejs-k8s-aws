@@ -16,6 +16,9 @@ spec:
       containers:
       - image: motoskia/nodetodoapp
         name: web
+        env:
+        - name: Url
+          value: <<URL
         ports:
         - containerPort: 8080
           name: http-server
