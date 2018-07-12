@@ -21,6 +21,11 @@ $ git clone https://github.com/foxutech/nodejs-k8s-aws.git
  
 $ cd nodejs-k8s-aws/aws-infra
 
+Configure AWS credentials using, aws configure command, before run this be prepare with accesskey and secretkey and zone.
+
+$ aws configure
+
+
 # Step2: Lets Get.Plan.Apply
 
 Once you have all the files in the place, run a "terraform get" to get all the missing modules. 
