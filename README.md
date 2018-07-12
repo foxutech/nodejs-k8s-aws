@@ -53,7 +53,9 @@ export ZONES=us-west-2a,us-west-2b
 
 before start create local ssh key for kops, if there is not any keyfile
 
-$ sudo ssh-keygen
+$ sudo ssh-keygen or
+
+$ kops create secret --name staging.enplaylist.com sshpublickey admin -i ~/.ssh/id_rsa.pub
 
 $ sudo kops create cluster --name=stagingxyz.enplaylist.com --master-zones $ZONES --node-count=2 --node-size=t2.micro --zones $ZONES --networking weave --topology private --dns-zone $(terraform output public_zone_id) --vpc $(terraform output vpc_id) --target=terraform --out=. --yes
 
