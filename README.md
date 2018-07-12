@@ -146,7 +146,7 @@ Change to k8s direcoty, and start create the services using following command wi
 
 $ kubectl create -f mongo-service.yaml
 
-$ kubectl create -f mongo-controller.yaml
+$ kubectl create -f mongo-statefulset.yaml
 
 $ kubectl create -f web-controller.yaml
 
@@ -157,3 +157,17 @@ to make sure run following command,
 $ kubectl get services
 
 $ kubectl get pods
+
+You can check aws loadbalancer end point either in aws console or using following command in the name of LoadBalancer Ingress:, 
+
+$ kubectl describe svc web
+
+If you cannot access your DB, you can expose the pod using nodeport by following command,
+
+$ kubectl expose pod mongo-0 --type=NodePort
+
+Once you expose, you can get the ports in $ kubectl get svc, note that port and modify it in web-controller.yaml with node IP and redeploy the replicationcontroller. 
+
+otherwise, you an optin to mongo atlas (mongodb cloud service). 
+
+This setup suits for all the branches, you can just mention, git URL in web-controller.yaml as environment variable and also you can modify the DB url anytime. 
