@@ -1,6 +1,8 @@
 # nodejs-k8s-aws
 Here is complete setup steps followed, 
 
+Find the complete article on https://foxutech.com/deploy-node-application-on-aws-with-kubernetes/
+
  Before start, please make sure you have installed, GIT, Terraform, kops and kubectl in the box. if not please follow Pre-steps:
 
 
