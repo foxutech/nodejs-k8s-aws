@@ -6,6 +6,9 @@ metadata:
 spec:
   serviceName: "mongo"
   replicas: 3
+  selector: 
+    matchLabels:
+      role: mongo
   template:
     metadata:
       labels:
