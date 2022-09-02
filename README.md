@@ -3,7 +3,7 @@ Here is complete setup steps followed,
 
 Find the complete article on https://foxutech.com/deploy-node-application-on-aws-with-kubernetes/
 
- Before start, please make sure you have installed, GIT, Terraform, kops and kubectl in the box. if not please follow Pre-steps:
+Before start, please make sure you have installed, GIT, Terraform, kops and kubectl in the box. if not please follow Pre-steps:
 
 
 # Pre-steps:
@@ -19,11 +19,11 @@ Use git clone to clone the repository
 
 $ git clone https://github.com/foxutech/nodejs-k8s-aws.git
 
- Once you cloned succuessfully, go to repo directory using 'cd'
+Once you cloned succuessfully, go to repo directory using 'cd'
  
 $ cd nodejs-k8s-aws/aws-infra
 
-Configure AWS credentials using, aws configure command, before run this be prepare with accesskey and secretkey and zone.
+Configure AWS credentials using, aws configure command, before run this be prepare with access-key and secret-key and zone.
 
 $ aws configure
 
@@ -79,7 +79,7 @@ What happens, when you this command?
     - Create IAM policy files, user data scripts, and an SSH key in the ./data directory.
     - Generating a Terraform configuration for all of the Kubernetes resources. This will be saved in a file called kubernetes.tf.
 	
- if you want to deploy kubernetes in your exising subnet, before run 'terraform apply', edit the kubernetes.tf file using kops. mention your existing subnet details. 
+if you want to deploy kubernetes in your exising subnet, before run 'terraform apply', edit the kubernetes.tf file using kops. mention your existing subnet details. 
  
 $ kops edir cluster ${name}
  
@@ -95,7 +95,7 @@ $ sudo mkdir kubernetes
 
 $ terraform init
 
-$ Terraform plan
+$ terraform plan
 
 $ terraform apply
 
@@ -144,7 +144,7 @@ $ docker push motoskia/nodetodoapp
 
 # step5: Deploy the application
 
-Change to k8s direcoty, and start create the services using following command with each .yaml file. 
+Change to k8s directory, and start create the services using following command with each .yaml file. 
 
 $ kubectl create -f mongo-service.yaml
 
@@ -170,6 +170,6 @@ $ kubectl expose pod mongo-0 --type=NodePort
 
 Once you expose, you can get the ports in $ kubectl get svc, note that port and modify it in web-controller.yaml with node IP and redeploy the replicationcontroller. 
 
-otherwise, you an optin to mongo atlas (mongodb cloud service). 
+Otherwise, you an option to mongo atlas (mongodb cloud service). 
 
 This setup suits for all the branches, you can just mention, git URL in web-controller.yaml as environment variable and also you can modify the DB url anytime. 
